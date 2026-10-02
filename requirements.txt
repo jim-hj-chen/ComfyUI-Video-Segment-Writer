@@ -1,0 +1,2 @@
+numpy
+imageio-ffmpeg>=0.6

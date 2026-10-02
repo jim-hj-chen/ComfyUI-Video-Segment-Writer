@@ -1,0 +1,13 @@
+{
+  "nodeCategories": {
+    "Video Segment Writer": "视频分段保存与合成",
+    "Planning": "生成计划",
+    "Refinement": "画面精修",
+    "Output": "视频输出",
+    "Controls": "采样控制",
+    "References": "参考条件"
+  },
+  "settingsCategories": {
+    "Video Segment Writer": "视频分段保存与合成"
+  }
+}

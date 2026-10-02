@@ -1,0 +1,7 @@
+{
+  "id": "ComfyUI-Video-Segment-Writer",
+  "legacyTitles": {
+    "H3DiskEncodeSegment": "H3 分段编码到磁盘",
+    "H3DiskConcat": "H3 无重编码拼接成片"
+  }
+}

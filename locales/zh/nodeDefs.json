@@ -1,0 +1,68 @@
+{
+  "H3DiskEncodeSegment": {
+    "display_name": "视频分段保存（H.264 + AAC）",
+    "description": "将一段解码后的音画流式写入磁盘 MP4，并在有序清单中记录帧数。",
+    "inputs": {
+      "loop_ctx": {
+        "name": "循环上下文",
+        "tooltip": "连接 MieLoop v3 的循环上下文，用于识别本次运行及当前分段序号。"
+      },
+      "images": {
+        "name": "视频帧",
+        "tooltip": "解码后的 RGB IMAGE 批次，形状为 [帧数, 高, 宽, 3]；H.264 要求宽高为偶数。"
+      },
+      "audio": {
+        "name": "本段音频",
+        "tooltip": "与画面同段的解码 AUDIO，含 [1, 声道, 采样点] waveform 和正数 sample_rate。"
+      },
+      "fps": {
+        "name": "帧率",
+        "tooltip": "每秒帧数；同一次运行中所有分段须保持一致。"
+      },
+      "crf": {
+        "name": "H.264 质量（CRF）",
+        "tooltip": "恒定质量系数，范围 0–51；数值越小质量越高、文件越大，默认 19。"
+      },
+      "preset": {
+        "name": "H.264 编码速度预设",
+        "tooltip": "medium 为均衡；fast/veryfast 缩短编码时间；slow 在相同 CRF 下花更多时间改善压缩。",
+        "options": {
+          "medium": "均衡（medium）",
+          "fast": "快速（fast）",
+          "veryfast": "极快（veryfast）",
+          "slow": "更高压缩效率（slow）"
+        }
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "循环上下文",
+        "tooltip": "连接 MieLoop v3 的循环上下文，用于识别本次运行及当前分段序号。"
+      },
+      "1": {
+        "name": "分段 MP4 路径",
+        "tooltip": "已编码的 H.264/AAC 分段 MP4 的绝对路径。"
+      }
+    }
+  },
+  "H3DiskConcat": {
+    "display_name": "视频分段合成（直接复制码流）",
+    "description": "循环完成后，将全部已提交 MP4 分段直接复制码流拼接，不重新编码视频或音频。",
+    "inputs": {
+      "loop_ctx": {
+        "name": "循环上下文",
+        "tooltip": "连接 MieLoop v3 的循环上下文，用于识别本次运行及当前分段序号。"
+      },
+      "done": {
+        "name": "循环已完成",
+        "tooltip": "连接 MieLoop 的完成标记；仅在值为真且所有段已提交时执行拼接。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "最终 MP4 路径",
+        "tooltip": "拼接后的最终 MP4 绝对路径，同时含画面与音频。"
+      }
+    }
+  }
+}

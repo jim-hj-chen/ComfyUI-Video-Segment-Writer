@@ -1,0 +1,68 @@
+{
+  "H3DiskEncodeSegment": {
+    "display_name": "Video Segment Writer (H.264 + AAC)",
+    "description": "Stream one decoded video/audio segment to an MP4 on disk and record its frame count in an ordered manifest.",
+    "inputs": {
+      "loop_ctx": {
+        "name": "Loop Context",
+        "tooltip": "Connect the MieLoop v3 context for this run and segment index."
+      },
+      "images": {
+        "name": "Video Frames",
+        "tooltip": "Decoded RGB IMAGE batch shaped [frames, height, width, 3]; H.264 requires even width and height."
+      },
+      "audio": {
+        "name": "Segment Audio",
+        "tooltip": "Decoded AUDIO with waveform [1, channels, samples] and a positive sample_rate, from the same segment as the video."
+      },
+      "fps": {
+        "name": "Frame Rate",
+        "tooltip": "Frames per second. Keep the same value across all segments in a run."
+      },
+      "crf": {
+        "name": "H.264 Quality (CRF)",
+        "tooltip": "Constant rate factor, 0–51. Smaller values improve quality and increase file size; default 19."
+      },
+      "preset": {
+        "name": "H.264 Encoding Preset",
+        "tooltip": "medium is balanced; fast/veryfast reduce encoding time; slow spends more time on compression at the same CRF.",
+        "options": {
+          "medium": "Balanced (medium)",
+          "fast": "Fast (fast)",
+          "veryfast": "Very fast (veryfast)",
+          "slow": "Better compression (slow)"
+        }
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Loop Context",
+        "tooltip": "Connect the MieLoop v3 context for this run and segment index."
+      },
+      "1": {
+        "name": "Segment MP4 Path",
+        "tooltip": "Absolute path to the encoded H.264/AAC segment MP4."
+      }
+    }
+  },
+  "H3DiskConcat": {
+    "display_name": "Video Segment Assembler (Stream Copy)",
+    "description": "Assemble all committed MP4 segments without video or audio re-encoding when the loop finishes.",
+    "inputs": {
+      "loop_ctx": {
+        "name": "Loop Context",
+        "tooltip": "Connect the MieLoop v3 context for this run and segment index."
+      },
+      "done": {
+        "name": "Loop Finished",
+        "tooltip": "Connect the MieLoop completion flag; concatenation runs only when true and all segments are committed."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Final MP4 Path",
+        "tooltip": "Absolute path to the assembled MP4 containing video and audio."
+      }
+    }
+  }
+}

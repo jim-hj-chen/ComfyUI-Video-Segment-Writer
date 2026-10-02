@@ -1,0 +1,13 @@
+{
+  "nodeCategories": {
+    "Video Segment Writer": "Video Segment Writer",
+    "Planning": "Planning",
+    "Refinement": "Refinement",
+    "Output": "Output",
+    "Controls": "Controls",
+    "References": "References"
+  },
+  "settingsCategories": {
+    "Video Segment Writer": "Video Segment Writer"
+  }
+}
